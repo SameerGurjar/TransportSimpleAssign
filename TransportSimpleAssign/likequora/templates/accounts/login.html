@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+
+    <h4>{% if info %} {{ info }} {% endif %}</h4>
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <h1>Login</h1>
+    <!-- Login Form -->
+    <form method="POST">
+         {% csrf_token %}
+     {{ form.as_p }}
+        <input type="submit" name="Submit">
+    </form>
+
+  </div>
+</div>
+{% endblock %}

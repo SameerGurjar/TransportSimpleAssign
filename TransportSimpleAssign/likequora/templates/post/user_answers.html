@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+<ul>
+{% for answer in answers %}
+<li>
+    Question : <a href="{{ answer.question.get_absolute_url }}"> {{ answer.question.content }}  </a><br>
+    User :  {{ answer.question.user.username }} <br>
+    Date and Time : {{ question.timestamp }} <br>
+    Total Ans. : {{ answer.question.num_answer }} <br>
+
+    <hr>
+    Your Answer : {{ answer.content}} <br>
+    User :  {{ answer.user.username }}<br>
+    Date and Time : {{ answer.timestamp }} <br>
+    {% if not request.user.is_authenticated %}
+        <a href="{{ answer.get_like_absolute_url }}"> Like </a> {{ answer.likes }}
+    {% else %}
+        {% if answer.isliked %}
+             <a href="{{ answer.get_like_absolute_url }}"> UnLike </a> {{ answer.likes }}
+        {% else %}
+             <a href="{{ answer.get_like_absolute_url }}"> Like </a> {{ answer.likes }}
+        {% endif %}
+    {% endif %}
+    <br>
+    <a href="{{ answer.delete_absolute_url }}"> DELETE </a>
+    <hr>
+</li>
+{% endfor %}
+</ul>
+{% endblock %}

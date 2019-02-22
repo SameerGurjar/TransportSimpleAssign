@@ -1,0 +1,51 @@
+{% url 'post:home' as home_url %}
+{% url 'accounts:login' as login_url %}
+{% url 'accounts:logout' as logout_url %}
+{% url 'accounts:register' as register_url %}
+{% url 'post:question-create' as ask_question_url %}
+{% url 'post:user-questions' as user_questions_url %}
+{% url 'post:user-answers' as user_answers_url %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+  <div class="container-fluid">
+
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+          <li class="nav-item {% if request.path == home_url %}active{% endif %}">
+              <a class="nav-link" href="{{ home_url }}">Home <span class="sr-only">(current)</span></a> </li>
+
+        {% if request.user.is_authenticated %}
+
+        <li class="nav-item ">
+              <a class="nav-link" href="{{ logout_url }}">Logout <span class="sr-only">(current)</span></a> </li>
+
+        <li class="nav-item {% if request.path == user_questions_url %}active{% endif %}">
+              <a class="nav-link" href="{{ user_questions_url }}">Your Asked Questions <span class="sr-only">(current)</span></a> </li>
+
+        <li class="nav-item {% if request.path == user_answers_url %}active{% endif %}">
+              <a class="nav-link" href="{{ user_answers_url }}">Your Answered Questions <span class="sr-only">(current)</span></a> </li>
+
+        {% else %}
+         <li class="nav-item {% if request.path == login_url %}active{% endif %}">
+              <a class="nav-link" href="{{ login_url }}">Login <span class="sr-only">(current)</span></a> </li>
+          <li class="nav-item {% if request.path == register_url %}active{% endif %}">
+              <a class="nav-link" href="{{ register_url }}">Register <span class="sr-only">(current)</span></a> </li>
+        {% endif %}
+
+
+        <li class="nav-item {% if request.path == ask_question_url %}active{% endif %}">
+            <a class="nav-link" href="{{ ask_question_url }}">Ask Question<span class="sr-only">(current)</span></a> </li>
+      </ul>
+
+      {% if request.user.is_authenticated %}
+        <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Welcome {{ request.user.username }}</a>
+                </li>
+            </ul>
+      {% endif %}
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

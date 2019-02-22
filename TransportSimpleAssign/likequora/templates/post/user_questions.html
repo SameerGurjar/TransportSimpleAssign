@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<ul>
+{% for question in questions %}
+<li>
+    Question : <a href="{{ question.get_absolute_url }}"> {{ question.content }}  </a><br>
+    User :  {{ question.user.username }} <br>
+    Date and Time : {{ question.timestamp }} <br>
+    Total Ans. : {{ question.num_answer }}<br>
+    <a href="{{ question.delete_absolute_url }}">DELETE</a>
+    <hr>
+</li>
+{% endfor %}
+</ul>
+{% endblock %}

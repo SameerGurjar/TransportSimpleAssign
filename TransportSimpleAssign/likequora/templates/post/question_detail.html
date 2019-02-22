@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Question : {{ question.content }}</h2>
+<h4>User : {{ question.user.username }}</h4>
+Date and Time : {{ question.timestamp }} <br>
+<hr>
+
+{% if messages %}
+    {% for message in messages %}
+    {{ message }}<br>
+    {% endfor %}
+{% endif %}
+
+{% if not request.user.is_authenticated %}
+<h4>Action Requires Login</h4>
+{% endif %}
+
+    <form method="POST">
+         {% csrf_token %}
+     {{ form.as_p }}
+        <input type="submit" name="Submit">
+    </form>
+<hr>
+<ul>
+{% for answer in answers %}
+<li>
+    Answer : {{ answer.content}} <br>
+    User :  {{ answer.user.username }}<br>
+    Date and Time : {{ answer.timestamp }} <br>
+    {% if not request.user.is_authenticated %}
+        <a href="{{ answer.get_like_absolute_url }}"> Like </a> {{ answer.likes }}
+    {% else %}
+        {% if answer.isliked %}
+             <a href="{{ answer.get_like_absolute_url }}"> UnLike </a> {{ answer.likes }}
+        {% else %}
+             <a href="{{ answer.get_like_absolute_url }}"> Like </a> {{ answer.likes }}
+        {% endif %}
+    {% endif %}
+<hr>
+</li>
+{% endfor %}
+</ul>
+{% endblock %}

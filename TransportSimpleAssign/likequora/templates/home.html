@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+<ul>
+{% for question in questions %}
+<li>
+    Question : <a href="{{ question.get_absolute_url }}"> {{ question.content }}  </a><br>
+    User :  {{ question.user.username }} <br>
+    Date and Time : {{ question.timestamp }} <br>
+    Total Ans. : {{ question.num_answer }}
+     <hr>
+</li>
+
+{% endfor %}
+</ul>
+{% endblock %}
